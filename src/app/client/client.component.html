@@ -1,0 +1,250 @@
+
+
+<div class="header">
+
+    <div class="container h-100 my-3">
+        <div class="row h-100 align-items-center">
+
+            <div class="col-md-12  text-center ">
+                <h2>Welcome to Client Management System</h2>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+
+<div class="container col-8 my-3">
+    <div class="mx-3">
+        <button class="btn btn-primary" data-toggle="modal" data-target="#newModal">Add Client</button>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card my-2" *ngFor="let client of clientList let i=index">
+                <div class="card-header">
+                    <b>Client Id:-</b> #{{client.clientId}}
+                </div>
+                <div class="card-body text-center">
+
+                    <h6> Client Name:- {{client.clientName}}</h6>
+                    <h6> Client Address:- {{client.clientAddress}}</h6>
+
+
+                    <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
+                    <div class="row d-flex justify-content-center">
+                        <div class="mx-3">
+                            <button class="btn btn-primary" data-toggle="modal" data-target="#editModal"
+                                (click)="onEditClick($event,i)">Edit
+                            </button>
+                        </div>
+                        <div class="mx-3">
+                            <button class="btn btn-primary" data-toggle="modal" data-target="#deleteModal"
+                                (click)="onDeleteClick($event,i)">Delete</button>
+                        </div>
+                        <div class="mx-3">
+                            <button class="btn btn-primary" data-toggle="modal" data-target="#clientEmployees"
+                                (click)="onViewClientClick($event,i)">View
+                                Clients
+                            </button>
+                        </div>
+
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+    <form>
+        <div class="modal" role="dialog" id="newModal">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content" style="width:700px">
+                    <div class="modal-header">
+                        <div class="modal-title">New Client</div>
+                        <button type="button" class="close" data-dismiss="modal"><span>&times;</span></button>
+                    </div>
+                    <div class="modal-body">
+
+                        <div class="form-group row">
+                            <label for="txtNewProjectID" class="col-sm-4 col-form-label"> Client Name</label>
+                            <div class="col-sm-8">
+                                <input type="text" id="txtNewProjectID" class="form-control" placeholder="Client Name"
+                                    name="clientName" [(ngModel)]="newClient.clientName">
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <label for="txtNewProjectName" class="col-sm-4 col-form-label">Client Address</label>
+                            <div class="col-sm-8">
+                                <input type="text" id="txtNewProjectName" class="form-control"
+                                    placeholder="Employee EmployeeGender" name="clientAddress"
+                                    [(ngModel)]="newClient.clientAddress">
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="modal-footer">
+                        <button class="btn btn-warning" data-dismiss="modal">Cancel</button>
+                        <button class="btn btn-success" data-dismiss="modal" (click)="onSaveClick()">Save</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+
+    <form>
+        <div class="modal" role="dialog" id="editModal">
+            <div class="modal-dialog">
+                <div class="modal-content" style="width: 700px">
+                    <div class="modal-header">
+                        <div class="modal-title">Edit Client</div>
+                        <button type="button" class="close" data-dismiss="modal">
+                            <span>&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="form-group row">
+                            <label for="txtNewProjectID" class="col-sm-4 col-form-label"> Client Id</label>
+                            <div class="col-sm-8">
+                                <input type="text" id="txtNewProjectID" class="form-control" placeholder="Client Id"
+                                    name="clientId" [(ngModel)]="editClient.clientId" disabled="disabled">
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="txtNewProjectID" class="col-sm-4 col-form-label"> Client Name</label>
+                            <div class="col-sm-8">
+                                <input type="text" id="txtNewProjectID" class="form-control"
+                                    placeholder="Client Name..." name="clientName" [(ngModel)]="editClient.clientName">
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <label for="txtNewProjectName" class="col-sm-4 col-form-label">Client Address</label>
+                            <div class="col-sm-8">
+                                <input type="text" id="txtNewProjectName" class="form-control"
+                                    placeholder="Client Addresss..." name="clientAddress"
+                                    [(ngModel)]="editClient.clientAddress">
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="modal-footer">
+                        <button class="btn btn-warning" data-dismiss="modal">Cancel</button>
+                        <button class="btn btn-success" data-dismiss="modal" (click)="onUpdateClick()">
+                            Update
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+
+    <form>
+        <div class="modal" role="dialog" id="deleteModal">
+            <div class="modal-dialog">
+                <div class="modal-content" style="width: 700px">
+                    <div class="modal-header">
+                        <div class="modal-title">Delete Client</div>
+                        <button type="button" class="close" data-dismiss="modal">
+                            <span>&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="text-warning">Are you sure want to delete this Client</div>
+                        <div class="form-group row">
+                            <label for="txtNewProjectID" class="col-sm-4 col-form-label"> Client Id</label>
+                            <div class="col-sm-8">
+                                <input type="text" id="txtNewProjectID" class="form-control" placeholder="Client Id"
+                                    name="clientId" [(ngModel)]="deleteClient.clientId" disabled="disabled">
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="txtNewProjectID" class="col-sm-4 col-form-label"> Client Name</label>
+                            <div class="col-sm-8">
+                                <input type="text" id="txtNewProjectID" class="form-control" placeholder=" Name..."
+                                    name="clientName" [(ngModel)]="deleteClient.clientName" disabled="disabled">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer text-center">
+                        <button class="btn btn-warning" data-dismiss="modal">Cancel</button>
+                        <button class="btn btn-success" data-dismiss="modal" (click)="onDeleteConfirmClick()">
+                            Delete
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+
+    <div class="modal" id="clientEmployees">
+        <div class="modal-dialog modal-dialog-scrollable emplyeeClient-modal-dialog">
+            <div class="modal-content employeeClient-modal-content ">
+                <div class="modal-header">
+                    <h5 class="modal-title">ClientId #{{currentClientId}}</h5>
+                    <button type="button" class="close" data-dismiss="modal"><span>&times;</span></button>
+                </div>
+                <div class="modal-body">
+                    <p>All Assigned Clients to {{currentClientName}} </p>
+                    <table class="table table-sm">
+                        <thead>
+                          <tr>
+                            <th scope="col">#Employee Id</th>
+                            <th scope="col">Employee Name</th>
+                            <th scope="col">Employee Gender</th>
+                            <th scope="col">Employee Age</th>
+                            <th scope="col">Employee Email</th>
+
+                            <th>Remove Employee</th>
+
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr *ngFor="let employee of notAssignableEmployees let i=index">
+                            <th scope="row">{{employee.employeeId}}</th>
+                            <td>{{employee.employeeName}}</td>
+                            <td>{{employee.employeeGender}}</td>
+                            <td>{{employee.employeeAge}}</td>
+                            <td>{{employee.employeeEmail}}</td>
+
+                            <button class="btn-primary" style="border-radius: 15px;" (click)="onRemoveClick($event,i)">Remove</button>
+                          </tr>
+                        </tbody>
+                      </table>
+
+                    <p>All Assignable Clients to {{currentClientName}} </p>
+                    
+                    <table class="table table-sm">
+                        <thead>
+                          <tr>
+                            <th scope="col">#Employee Id</th>
+                            <th scope="col">Employee Name</th>
+                            <th scope="col">Employee Gender</th>
+                            <th scope="col">Employee Age</th>
+                            <th scope="col">Employee Email</th>
+                            
+                            <th>Add Employee</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr *ngFor="let employee of assignableEmployees let i=index">
+                            <th scope="row">{{employee.employeeId}}</th>
+                            <td>{{employee.employeeName}}</td>
+                            <td>{{employee.employeeGender}}</td>
+                            <td>{{employee.employeeAge}}</td>
+                            <td>{{employee.employeeEmail}}</td>
+                            <button class="btn-primary" style="border-radius: 15px;"  (click)="onAddClick($event,i)">Add</button>
+                          </tr>
+                        </tbody>
+                      </table>
+                      
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary"  data-dismiss="modal">Close</button>
+                </div>
+
+            </div>
+        </div>
+    </div>
